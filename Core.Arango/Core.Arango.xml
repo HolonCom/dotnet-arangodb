@@ -9970,6 +9970,11 @@
         <member name="M:Core.Arango.Serialization.Json.ArangoJsonCamelCasePolicy.ConvertName(System.String)">
             <inheritdoc />
         </member>
+        <member name="M:Core.Arango.Serialization.Json.ArangoJsonCamelCasePolicy.Fix(System.String)">
+            <summary>
+            Convert a string to PascalCase unless it is empty or already starts with UpperCase
+            </summary>
+        </member>
         <member name="T:Core.Arango.Serialization.Json.ArangoJsonDefaultPolicy">
             <summary>
                 System.Json.Text PascalCase Naming Policy for Arango

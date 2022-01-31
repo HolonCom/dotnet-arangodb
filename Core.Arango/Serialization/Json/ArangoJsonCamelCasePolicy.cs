@@ -31,7 +31,10 @@ namespace Core.Arango.Serialization.Json
                 return name;
 
 #if NETSTANDARD2_0
-            return
+            var newString = new Span<char>();
+            name.AsSpan().CopyTo(newString);
+            FixCasing(newString);
+            return newString.ToString();
 #else
             return string.Create(name.Length, name, (chars, n) =>
             {
