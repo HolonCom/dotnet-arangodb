@@ -95,7 +95,7 @@ namespace Core.Arango.Modules.Internal
             if (returnOld.HasValue)
                 parameter.Add("returnOld", returnOld.Value.ToString().ToLowerInvariant());
 
-            return await SendAsync<ArangoEdgeResponse<TR>>(database, HttpMethod.Patch,
+            return await SendAsync<ArangoEdgeResponse<TR>>(database, Netstandard20Helper.Patch,
                 ApiPath(database, $"gharial/{UrlEncode(graph)}/edge/{UrlEncode(collection)}/{key}", parameter),
                 doc, cancellationToken: cancellationToken);
         }
