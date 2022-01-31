@@ -67,8 +67,6 @@ namespace Core.Arango.Tests
         public async Task GroupBy()
         {
             var q = Arango.Query<Activity>("test")
-            .Where(x => x.Key.Contains("A"))
-            .OrderBy(x => x.Key)
             .GroupBy(x => new
             {
                 x.Start.Year,
@@ -77,7 +75,8 @@ namespace Core.Arango.Tests
             })
             .Select(g => new
             {
-                Day = g.Min(x => x.Revenue)
+                Day = g.Min(x => x.Revenue) //The error is here. The query on the database generates an array with a single item
+                                            //and its trying to parse it as a decimal.
             });
 
             var result = await q.ToListAsync();
@@ -238,11 +237,11 @@ namespace Core.Arango.Tests
         [Fact]
         public async Task Distinct()
         {
-            Person per1 = new Person { Name = "Person1", Key = "Per1" };
-            Person per2 = new Person { Name = "Person1", Key = "Per2" };
-            Person per3 = new Person { Name = "Person2", Key = "Per3" };
+            var per1 = new Person { Name = "Person1", Key = "Per1" };
+            var per2 = new Person { Name = "Person1", Key = "Per2" };
+            var per3 = new Person { Name = "Person2", Key = "Per3" };
 
-            List<Person> people = new List<Person> { per1, per2, per3 };
+            var people = new List<Person> { per1, per2, per3 };
 
             await Arango.Collection.CreateAsync(D, nameof(Person), ArangoCollectionType.Document);
             await Arango.Document.CreateManyAsync(D, nameof(Person), people);
