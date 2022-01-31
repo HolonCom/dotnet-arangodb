@@ -207,12 +207,12 @@ namespace Core.Arango.Tests
 
             await Arango.Document.CreateManyAsync(D, nameof(Client), new List<Client>
             {
-                new()
+                new Client
                 {
                     Key = "CA",
                     Name = "Client A"
                 },
-                new()
+                new Client
                 {
                     Key = "CB",
                     Name = "Client B"
@@ -221,13 +221,13 @@ namespace Core.Arango.Tests
 
             await Arango.Document.CreateManyAsync(D, nameof(Project), new List<Project>
             {
-                new ()
+                new Project
                 {
                     Key = "PA",
                     Name = "Project A",
                     ClientKey = "CA"
                 },
-                new ()
+                new Project
                 {
                     Key = "PB",
                     Name = "Project B",
@@ -266,9 +266,9 @@ namespace Core.Arango.Tests
 
             PrintQuery(q, _output);
 
-            var p = await q.ToListAsync();
+            var pList = await q.ToListAsync();
 
-            Assert.Equal(new List<int> { 0, 1 }, p);
+            Assert.Equal(new List<int> { 0, 1 }, pList);
         }
 
         [Fact]

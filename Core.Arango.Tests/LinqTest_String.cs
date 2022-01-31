@@ -48,13 +48,13 @@ namespace Core.Arango.Tests
         {
             await Arango.Document.CreateManyAsync(D, nameof(Project), new List<Project>
             {
-                new ()
+                new Project
                 {
                     Key = "PC",
                     Name = " Project C ",
                     ClientKey = "CA"
                 },
-                new ()
+                new Project
                 {
                     Key = "PD",
                     Name = "-||Project D||-",
@@ -84,13 +84,13 @@ namespace Core.Arango.Tests
         {
             await Arango.Document.CreateManyAsync(D, nameof(Project), new List<Project>
             {
-                new ()
+                new Project
                 {
                     Key = "PC",
                     Name = " Project C",
                     ClientKey = "CA"
                 },
-                new ()
+                new Project
                 {
                     Key = "PD",
                     Name = "-||Project D",
@@ -118,13 +118,13 @@ namespace Core.Arango.Tests
         {
             await Arango.Document.CreateManyAsync(D, nameof(Project), new List<Project>
             {
-                new ()
+                new Project
                 {
                     Key = "PC",
                     Name = "Project C ",
                     ClientKey = "CA"
                 },
-                new ()
+                new Project
                 {
                     Key = "PD",
                     Name = "Project D||-",
@@ -235,12 +235,12 @@ namespace Core.Arango.Tests
 
             await Arango.Document.CreateManyAsync(D, nameof(Client), new List<Client>
             {
-                new()
+                new Client
                 {
                     Key = "CA",
                     Name = "Client A"
                 },
-                new()
+                new Client
                 {
                     Key = "CB",
                     Name = "Client B"
@@ -249,13 +249,13 @@ namespace Core.Arango.Tests
 
             await Arango.Document.CreateManyAsync(D, nameof(Project), new List<Project>
             {
-                new ()
+                new Project
                 {
                     Key = "PA",
                     Name = "Project A",
                     ClientKey = "CA"
                 },
-                new ()
+                new Project
                 {
                     Key = "PB",
                     Name = "Project B",

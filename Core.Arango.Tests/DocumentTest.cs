@@ -314,12 +314,12 @@ namespace Core.Arango.Tests
 
             await Arango.Document.CreateManyAsync("test", "test", new List<RevEntity>
             {
-                new()
+                new RevEntity
                 {
                     Key = "1",
                     Name = "A"
                 },
-                new()
+                new RevEntity
                 {
                     Key = "2",
                     Name = "B"

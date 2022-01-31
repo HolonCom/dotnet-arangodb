@@ -498,7 +498,7 @@ namespace Core.Arango.Tests
 
             await Arango.Document.CreateManyAsync(D, nameof(Activity), new List<Activity>
             {
-                new()
+                new Activity
                 {
                     Key = "AA",
                     Start = new DateTime(2021, 1, 30),
@@ -509,7 +509,7 @@ namespace Core.Arango.Tests
                         new Note { CreatedOn = new DateTime(2021, 1, 30), Text = "Note 1 (AA)" },
                     }
                 },
-                new()
+                new Activity
                 {
                     Key = "AB",
                     Start = new DateTime(2022, 5, 15),
@@ -521,7 +521,7 @@ namespace Core.Arango.Tests
                         new Note { CreatedOn = new DateTime(2022, 5, 16), Text = "Note 2 (AB)" },
                     }
                 },
-                new()
+                new Activity
                 {
                     Key = "AC",
                     Start = new DateTime(2022, 5, 15),
@@ -534,7 +534,7 @@ namespace Core.Arango.Tests
                         new Note { CreatedOn = new DateTime(2022, 5, 17), Text = "Note 3 (AC)" },
                     }
                 },
-                new()
+                new Activity
                 {
                     Key = "AD",
                     Start = new DateTime(2022, 5, 15),
@@ -542,7 +542,7 @@ namespace Core.Arango.Tests
                     Revenue = 4.4m,
                     Notes = new List<Note>()
                 },
-                new()
+                new Activity
                 {
                     Key = "AE",
                     Start = new DateTime(2026, 3, 15),

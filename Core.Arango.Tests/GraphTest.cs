@@ -22,7 +22,7 @@ namespace Core.Arango.Tests
                 Name = "graph",
                 EdgeDefinitions = new List<ArangoEdgeDefinition>
                 {
-                    new()
+                    new ArangoEdgeDefinition
                     {
                         Collection = "edges",
                         From = new List<string> {"vertices"},
@@ -119,7 +119,7 @@ namespace Core.Arango.Tests
                 Name = "graph",
                 EdgeDefinitions = new List<ArangoEdgeDefinition>
                 {
-                    new()
+                    new ArangoEdgeDefinition
                     {
                         Collection = "edges",
                         From = new List<string> {"vertices"},
@@ -242,7 +242,7 @@ namespace Core.Arango.Tests
                 Name = "graph",
                 EdgeDefinitions = new List<ArangoEdgeDefinition>
                 {
-                    new()
+                    new ArangoEdgeDefinition
                     {
                         Collection = "edges",
                         From = new List<string> {"vertices1"},

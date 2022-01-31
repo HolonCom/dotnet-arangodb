@@ -40,11 +40,7 @@ router.get('/hello-world', function (req, res) {
         private async Task<Stream> BuildService(string response)
         {
             var ms = new MemoryStream();
-            using (var zip = new ZipArchive(ms, ZipArchiveMode.Create, true, Encoding.UTF8))
-            {
-                await using (var manifest = zip.CreateEntry("manifest.json").Open())
-                {
-                    await manifest.WriteAsync(Encoding.UTF8.GetBytes(@"
+            var strManifest = @"
 {
   ""$schema"": ""http://json.schemastore.org/foxx-manifest"",
   ""name"": ""SampleService"",
@@ -67,19 +63,9 @@ router.get('/hello-world', function (req, res) {
     }
   }
 }
-"));
-                }
+";
 
-                await using (var readme = zip.CreateEntry("README").Open())
-                {
-                    await readme.WriteAsync(Encoding.UTF8.GetBytes(@"
-TEST
-"));
-                }
-
-                await using (var index = zip.CreateEntry("index.js").Open())
-                {
-                    await index.WriteAsync(Encoding.UTF8.GetBytes($@"
+            var strIndexJs = $@"
 'use strict';
 const createRouter = require('@arangodb/foxx/router');
 const router = createRouter();
@@ -91,9 +77,47 @@ router.get('/hello-world', function (req, res) {{
 .response(['application/json'], 'A generic greeting.')
 .summary('Generic greeting')
 .description('Prints a generic greeting.');
-"));
+";
+
+            var strTest = "TEST";
+
+#if NETSTANDARD2_0
+            using (var zip = new ZipArchive(ms, ZipArchiveMode.Create, true, Encoding.UTF8))
+            {
+                using (var manifest = zip.CreateEntry("manifest.json").Open())
+                {
+                    await manifest.WriteAsync(Encoding.UTF8.GetBytes(strManifest), 0, strManifest.Length);
+                }
+
+                using (var readme = zip.CreateEntry("README").Open())
+                {
+                    await readme.WriteAsync(Encoding.UTF8.GetBytes(strTest), 0, strTest.Length);
+                }
+
+                using (var index = zip.CreateEntry("index.js").Open())
+                {
+                    await index.WriteAsync(Encoding.UTF8.GetBytes(strIndexJs), 0, strIndexJs.Length);
                 }
             }
+#else
+            using (var zip = new ZipArchive(ms, ZipArchiveMode.Create, true, Encoding.UTF8))
+            {
+                await using (var manifest = zip.CreateEntry("manifest.json").Open())
+                {
+                    await manifest.WriteAsync(Encoding.UTF8.GetBytes(strManifest));
+                }
+
+                await using (var readme = zip.CreateEntry("README").Open())
+                {
+                    await readme.WriteAsync(Encoding.UTF8.GetBytes("TEST"));
+                }
+
+                await using (var index = zip.CreateEntry("index.js").Open())
+                {
+                    await index.WriteAsync(Encoding.UTF8.GetBytes(strIndexJs));
+                }
+            }
+#endif
 
             ms.Position = 0;
             return ms;
