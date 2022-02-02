@@ -255,6 +255,50 @@ namespace Core.Arango.Tests
         }
 
         [Fact]
+        public async Task Distinct2()
+        {
+            var chainTest = new OutterChain()
+            {
+                Name = "OutterChain_1",
+                innerChains = new List<InnerChain>()
+                {
+                    new InnerChain()
+                    {
+                        A = "21",
+                        B = "B",
+                        C = "C"
+                    },
+                    new InnerChain()
+                    {
+                        A = "21",
+                        B = "B",
+                        C = "C"
+                    },
+                    new InnerChain()
+                    {
+                        A = "22",
+                        B = "B",
+                        C = "C"
+                    }
+                }
+            };
+
+            await Arango.Collection.CreateAsync("test", nameof(OutterChain), ArangoCollectionType.Document);
+            await Arango.Document.CreateAsync("test", nameof(OutterChain), chainTest);
+
+            var q = Arango.Query<OutterChain>("test")
+                .SelectMany(x => x.innerChains)
+                .Select(y => y.A)
+                .Distinct()
+                //.ToListAsync()
+                ;
+
+            _output.WriteLine(q.ToAql().aql);
+
+            var c = await q.FirstOrDefaultAsync();
+        }
+
+        [Fact]
         public async Task Except_Compare_Objects()
         {
             var list = await Arango.Query<Activity>("test")
