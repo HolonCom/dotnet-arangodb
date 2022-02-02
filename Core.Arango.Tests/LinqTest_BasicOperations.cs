@@ -295,7 +295,9 @@ namespace Core.Arango.Tests
 
             _output.WriteLine(q.ToAql().aql);
 
-            var c = await q.FirstOrDefaultAsync();
+            var result = await q.ToListAsync();
+
+            Assert.Equal(2, result.Count); 
         }
 
         [Fact]

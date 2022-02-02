@@ -46,7 +46,8 @@ namespace Core.Arango.Linq.Query
                 typeof(ExceptResultOperator),
                 typeof(IntersectResultOperator),
                 typeof(UnionResultOperator),
-                typeof(AnyResultOperator)
+                typeof(AnyResultOperator),
+                typeof(DistinctResultOperator)
             };
         }
 
