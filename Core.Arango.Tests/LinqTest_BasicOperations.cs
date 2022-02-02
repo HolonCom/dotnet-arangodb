@@ -91,7 +91,7 @@ namespace Core.Arango.Tests
             var terry = new Person { Name = "Adams, Terry", Key = "Per2" };
             var charlotte = new Person { Name = "Weiss, Charlotte", Key = "Per3" };
 
-            var barley = new Pet { Name = "Barley", Owner = terry, Key= "Pet1" };
+            var barley = new Pet { Name = "Barley", Owner = terry, Key = "Pet1" };
             var boots = new Pet { Name = "Boots", Owner = terry, Key = "Pet2" };
             var whiskers = new Pet { Name = "Whiskers", Owner = charlotte, Key = "Pet3" };
             var daisy = new Pet { Name = "Daisy", Owner = magnus, Key = "Pet4" };
@@ -245,7 +245,7 @@ namespace Core.Arango.Tests
 
             await Arango.Collection.CreateAsync(D, nameof(Person), ArangoCollectionType.Document);
             await Arango.Document.CreateManyAsync(D, nameof(Person), people);
-            
+
             var p = await Arango.Query<Person>("test")
                 .Select(x => x.Name)
                 .Distinct()
