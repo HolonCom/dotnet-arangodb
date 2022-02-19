@@ -457,8 +457,8 @@ namespace Core.Arango.Linq.Query
 
             if (traversalClause.Options != null)
             {
-                // TODO: corona options
                 //QueryText.AppendFormat(" options {0} ", new DocumentSerializer(Db).SerializeWithoutReader(traversalClause.Options.Value));
+                // TODO: corona options
             }
         }
 
