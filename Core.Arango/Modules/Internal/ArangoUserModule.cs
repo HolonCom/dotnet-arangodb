@@ -68,7 +68,7 @@ namespace Core.Arango.Modules.Internal
         /// </summary>
         public async Task<bool> PatchAsync(ArangoUser user, CancellationToken cancellationToken = default)
         {
-            var res = await SendAsync<ArangoVoid>(null, Netstandard20Helper.Patch,
+            var res = await SendAsync<ArangoVoid>(null, PolyfillHelper.Patch,
                 ApiPath($"user/{UrlEncode(user.Name)}"),
                 user,
                 cancellationToken: cancellationToken);

@@ -88,15 +88,13 @@ namespace Core.Arango
                 User = user;
                 Password = password;
 
-#if NETSTANDARD2_0
-                Endpoints = endpoints?.Split(',').ToList().RemoveEmptyEntries();
-#else
-                Endpoints = endpoints?.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
-#endif
+                Endpoints = endpoints?.SplitAndRemoveEmptyEntries(',').ToList();
                 if (allowDirtyRead?.Equals("true", StringComparison.InvariantCultureIgnoreCase) == true)
                     AllowDirtyRead = true;
             }
         }
+
+      
 
         /// <inheritdoc />
         public string Realm { get; set; }
