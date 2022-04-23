@@ -89,12 +89,11 @@ namespace Core.Arango
                 Password = password;
 
                 Endpoints = endpoints?.SplitAndRemoveEmptyEntries(',').ToList();
+
                 if (allowDirtyRead?.Equals("true", StringComparison.InvariantCultureIgnoreCase) == true)
                     AllowDirtyRead = true;
             }
         }
-
-      
 
         /// <inheritdoc />
         public string Realm { get; set; }

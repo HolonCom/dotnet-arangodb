@@ -7,7 +7,7 @@ dotnet add package Core.Arango
 ```
 
 # .NET driver for ArangoDB
-- .NET Standard 2.1 .NET 5.0 and .NET 6.0 driver for ArangoDB 3.8+
+- .NET Standard 2.0, 2.1, .NET 5.0 and .NET 6.0 driver for ArangoDB 3.8+
 - LINQ support (WIP)
 - Newtonsoft and System.Text.Json serialization support with PascalCase and camelCase options
 - Updates from anonymous types supported as (Id, Key, Revision, From, To) properties are translated to (_id, _key, _rev, _from, _to)
@@ -199,6 +199,26 @@ await foreach (var x in Arango.Query.ExecuteStreamAsync<string>("database", $"FO
 }
 ```
 
+## Get documents
+Get (many) documents by providing a list of keys or objects with "Key" and optional "Revision" property
+```csharp
+var list1 = await Arango.Document.GetManyAsync<Entity>("database", "collection", new List<string> {
+  "1", "2"
+});
+
+var list2 = await Arango.Document.GetManyAsync<Entity>("database", "collection", new List<object>
+{
+  new
+  {
+    Key = "1"
+  },
+  new
+  {
+    Key = "2"
+  }
+});
+```
+
 # Linq
 - LINQ support has been adapted from https://github.com/ra0o0f/arangoclient.net
   - Internalized re-motion relinq since their nuget is quite outdated
@@ -259,6 +279,24 @@ var q = Arango.Query<Project>("test")
   }, x => x.Key);
 		
 await q.ToListAsync();
+```
+
+## Remove
+```csharp
+await Arango.Query<Project>("test")
+.Where(x => x.Name == "Project A")
+.Remove().In<Project>().Select(x => x.Key).ToListAsync();
+```
+
+
+## OPTIONS
+"Option" is the query option that exists in ArangoDb.
+Some operations like  FOR / Graph Traversal / SEARCH / COLLECT / INSERT / UPDATE / REPLACE / UPSERT / REMOVE would support "Options".
+
+```csharp
+await Arango.Query<Project>("test")
+.Where(x => x.Name == "Project A")
+.Options(() => new { indexHint = "byName" }).ToListAsync();
 ```
 
 # Snippets for Advanced Use Cases
