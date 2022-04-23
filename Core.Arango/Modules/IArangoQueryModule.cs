@@ -77,5 +77,27 @@ namespace Core.Arango.Modules
         /// </summary>
         IAsyncEnumerable<T> ExecuteStreamAsync<T>(ArangoHandle database, ArangoCursor cursor,
             CancellationToken cancellationToken = default);
+
+
+        /// <summary>
+        ///     explain an AQL query and return information about it
+        /// </summary>
+        Task<ArangoExplainResult> ExplainAsync(ArangoHandle database, string query,
+            IDictionary<string, object> bindVars,
+            bool allPlans = false,
+            CancellationToken cancellationToken = default);
+
+        /// <summary>
+        ///     explain an AQL query and return information about it
+        /// </summary>
+        Task<ArangoExplainResult> ExplainAsync(ArangoHandle database, FormattableString query,
+            bool allPlans = false,
+            CancellationToken cancellationToken = default);
+
+        /// <summary>
+        ///     parse an AQL query and return information about it
+        /// </summary>
+        Task<ArangoParseResult> ParseAsync(ArangoHandle database, string query,
+            CancellationToken cancellationToken = default);
     }
 }
