@@ -48,7 +48,7 @@ namespace Core.Arango.Modules.Internal
                 cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
-        public async Task<List<ArangoUpdateResult<TR>>> CreateManyAsync<T, TR>(ArangoHandle database,
+        public Task<List<ArangoUpdateResult<TR>>> CreateManyAsync<T, TR>(ArangoHandle database,
             string collection, IEnumerable<T> docs, bool? waitForSync = null,
             bool? keepNull = null, bool? mergeObjects = null, bool? returnOld = null, bool? returnNew = null,
             bool? silent = null, ArangoOverwriteMode? overwriteMode = null,
@@ -79,8 +79,8 @@ namespace Core.Arango.Modules.Internal
 
             var query = AddQueryString(ApiPath(database, $"document/{UrlEncode(collection)}"), parameter);
 
-            return await SendAsync<List<ArangoUpdateResult<TR>>>(database, HttpMethod.Post, query,
-                docs, cancellationToken: cancellationToken).ConfigureAwait(false);
+            return SendAsync<List<ArangoUpdateResult<TR>>>(database, HttpMethod.Post, query,
+                docs, cancellationToken: cancellationToken);
         }
 
         public async Task<List<ArangoUpdateResult<ArangoVoid>>> CreateManyAsync<T>(ArangoHandle database,
