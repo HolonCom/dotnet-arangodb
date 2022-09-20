@@ -50,7 +50,7 @@ namespace Core.Arango.Linq.Query
             this.db = db;
         }
 
-        private IQueryParser CreateQueryParser()
+        private static IQueryParser CreateQueryParser()
         {
             var customNodeTypeRegistry = new MethodInfoBasedNodeTypeRegistry();
 
@@ -69,27 +69,17 @@ namespace Core.Arango.Linq.Query
             customNodeTypeRegistry.Register(UpdateReplaceExpressionNode.SupportedMethods, typeof(UpdateReplaceExpressionNode));
             customNodeTypeRegistry.Register(PartialUpdateExpressionNode.SupportedMethods, typeof(PartialUpdateExpressionNode));
             customNodeTypeRegistry.Register(UpsertExpressionNode.SupportedMethods, typeof(UpsertExpressionNode));
-            customNodeTypeRegistry.Register(SelectModificationExpressionNode.SupportedMethods,
-                typeof(SelectModificationExpressionNode));
-            customNodeTypeRegistry.Register(InModificationExpressionNode.SupportedMethods,
-                typeof(InModificationExpressionNode));
-            customNodeTypeRegistry.Register(IgnoreModificationSelectExpressionNode.SupportedMethods,
-                typeof(IgnoreModificationSelectExpressionNode));
+            customNodeTypeRegistry.Register(SelectModificationExpressionNode.SupportedMethods, typeof(SelectModificationExpressionNode));
+            customNodeTypeRegistry.Register(InModificationExpressionNode.SupportedMethods, typeof(InModificationExpressionNode));
+            customNodeTypeRegistry.Register(IgnoreModificationSelectExpressionNode.SupportedMethods, typeof(IgnoreModificationSelectExpressionNode));
             customNodeTypeRegistry.Register(TraversalExpressionNode.SupportedMethods, typeof(TraversalExpressionNode));
-            customNodeTypeRegistry.Register(TraversalDepthExpressionNode.SupportedMethods,
-                typeof(TraversalDepthExpressionNode));
-            customNodeTypeRegistry.Register(TraversalDirectionExpressionNode.SupportedMethods,
-                typeof(TraversalDirectionExpressionNode));
-            customNodeTypeRegistry.Register(TraversalGraphNameExpressionNode.SupportedMethods,
-                typeof(TraversalGraphNameExpressionNode));
-            customNodeTypeRegistry.Register(TraversalEdgeExpressionNode.SupportedMethods,
-                typeof(TraversalEdgeExpressionNode));
-            customNodeTypeRegistry.Register(TraversalOptionsExpressionNode.SupportedMethods,
-                typeof(TraversalOptionsExpressionNode));
-            customNodeTypeRegistry.Register(ShortestPathExpressionNode.SupportedMethods,
-                typeof(ShortestPathExpressionNode));
-            customNodeTypeRegistry.Register(OptionsExpressionNode.SupportedMethods,
-                typeof(OptionsExpressionNode));
+            customNodeTypeRegistry.Register(TraversalDepthExpressionNode.SupportedMethods, typeof(TraversalDepthExpressionNode));
+            customNodeTypeRegistry.Register(TraversalDirectionExpressionNode.SupportedMethods, typeof(TraversalDirectionExpressionNode));
+            customNodeTypeRegistry.Register(TraversalGraphNameExpressionNode.SupportedMethods, typeof(TraversalGraphNameExpressionNode));
+            customNodeTypeRegistry.Register(TraversalEdgeExpressionNode.SupportedMethods, typeof(TraversalEdgeExpressionNode));
+            customNodeTypeRegistry.Register(TraversalOptionsExpressionNode.SupportedMethods, typeof(TraversalOptionsExpressionNode));
+            customNodeTypeRegistry.Register(ShortestPathExpressionNode.SupportedMethods, typeof(ShortestPathExpressionNode));
+            customNodeTypeRegistry.Register(OptionsExpressionNode.SupportedMethods, typeof(OptionsExpressionNode));
 
             var nodeTypeProvider = ExpressionTreeParser.CreateDefaultNodeTypeProvider();
             nodeTypeProvider.InnerProviders.Insert(0, customNodeTypeRegistry);
